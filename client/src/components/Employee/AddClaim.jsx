@@ -35,7 +35,7 @@ const AddClaim = () => {
         try {
             const base64Data = await convertToBase64(file);
             const response = await axios.post(
-                "http://localhost:5001/api/receipts/amount",
+                "http://localhost:5001/api/receipts/amountGemini",
                 { imageBuffer: base64Data }
             );
             if (response.data.isReceipt=== false) {
