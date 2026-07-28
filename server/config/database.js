@@ -1,7 +1,16 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config()
 
-const sequelize = new Sequelize({
+const sequelize = process.env.SUPABASE_URI ? new Sequelize(process.env.SUPABASE_URI, {
+    dialect: 'postgres',
+    logging: console.log,
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        }
+    }
+}) : new Sequelize({
     dialect: 'postgres',
     database: process.env.DB_NAME || 'mydb',
     username: process.env.DB_USER || 'postgres',
