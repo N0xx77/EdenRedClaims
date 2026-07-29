@@ -24,8 +24,7 @@ Company.hasMany(User, { foreignKey: 'company_id', onDelete: 'CASCADE', });
 User.belongsTo(Company, { foreignKey: 'company_id', });
 Company.hasMany(Claims, { foreignKey: 'company_id', onDelete: 'CASCADE', });
 Claims.belongsTo(Company, { foreignKey: 'company_id', });
-//ADD a foregin key in ITEMS:
-//REFERENCING: RECEIPT_ID
+
 
 sequelize.sync({ alter: true }).then(async () => {
     console.log('Database connected and synchronised...');
