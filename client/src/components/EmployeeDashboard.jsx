@@ -6,6 +6,7 @@ import { getAuthHeader } from './Utils/auth';
 import { useState, useEffect } from "react";
 import { customSelectStyles, options } from "../assets/selectstyle";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL, RECEIPTS_BASE_URL } from "../config/api";
 
 
 
@@ -29,7 +30,7 @@ export default function EmployeeDashboard({ user, onLogout }) {
 
     try {
       const response = await axios.get(
-        "http://localhost:5050/api/employee-dashboard/claims",
+        `${API_BASE_URL}/api/employee-dashboard/claims`,
         {
           headers: getAuthHeader(),
         },
@@ -67,7 +68,7 @@ export default function EmployeeDashboard({ user, onLogout }) {
 
       if (currClaim.status_id === 1) {
         response = await axios.delete(
-          "http://localhost:5050/api/employee-dashboard/claims",
+          `${API_BASE_URL}/api/employee-dashboard/claims`,
           {
             headers: getAuthHeader(),
             data: { claim_id: claimIdToDelete },
@@ -75,7 +76,7 @@ export default function EmployeeDashboard({ user, onLogout }) {
         );
 
         receiptResponse = await axios.delete(
-          "http://localhost:5001/api/receipts",
+          `${RECEIPTS_BASE_URL}/api/receipts`,
           {
             data: { claim_id: Number(claimIdToDelete) }
           }
@@ -97,7 +98,7 @@ export default function EmployeeDashboard({ user, onLogout }) {
   const fetchStatuses = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5050/api/status"
+        `${API_BASE_URL}/api/status`
       );
       setStatuses(Array.isArray(response.data?.data) ? response.data.data : []);
     } catch (err) {
@@ -109,7 +110,7 @@ export default function EmployeeDashboard({ user, onLogout }) {
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5050/api/category"
+        `${API_BASE_URL}/api/category`
       );
       setCategories(Array.isArray(response.data?.data) ? response.data.data : []);
     } catch (err) {
@@ -121,7 +122,7 @@ export default function EmployeeDashboard({ user, onLogout }) {
   const fetchBalance = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5050/api/employee-dashboard/userBalance/${user.userID}`
+        `${API_BASE_URL}/api/employee-dashboard/userBalance/${user.userID}`
       );
       setBalance(response.data?.data?.balance);
 

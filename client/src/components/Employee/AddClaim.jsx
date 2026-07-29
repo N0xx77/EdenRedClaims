@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { customSelectStyles, options } from "../../assets/selectstyle";
 import { convertToBase64 } from "../Utils/conversionBase64";
+import { API_BASE_URL, RECEIPTS_BASE_URL } from "../../config/api";
 
 
 const AddClaim = () => {
@@ -35,7 +36,7 @@ const AddClaim = () => {
         try {
             const base64Data = await convertToBase64(file);
             const response = await axios.post(
-                "http://localhost:5001/api/receipts/amountGemini",
+                `${RECEIPTS_BASE_URL}/api/receipts/amountGemini`,
                 { imageBuffer: base64Data }
             );
             if (response.data.isReceipt=== false) {
@@ -65,7 +66,7 @@ const AddClaim = () => {
         try {
 
             const response = await axios.post(
-                "http://localhost:5050/api/employee-dashboard/claims",
+                `${API_BASE_URL}/api/employee-dashboard/claims`,
                 {
                     category_id: categoryId,
                     description: description,
@@ -92,7 +93,7 @@ const AddClaim = () => {
 
 
             const receiptResponse = await axios.post(
-                "http://localhost:5001/api/receipts",
+                `${RECEIPTS_BASE_URL}/api/receipts`,
                 {
                     imageBuffer: base64File,
                     claim_id: Number(claimId),

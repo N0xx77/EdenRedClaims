@@ -4,6 +4,7 @@ import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recha
 import { getAuthHeader } from "../Utils/auth";
 import { Menu } from "lucide-react";
 import Sidebar from "./Sidebar";
+import { API_BASE_URL } from "../../config/api";
 
 const AdminHome = ({ user, onLogout }) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
@@ -25,7 +26,7 @@ const AdminHome = ({ user, onLogout }) => {
         setErrorMessage("");
         try {
             const userResponse = await axios.get(
-                "http://localhost:5050/api/admin-dashboard/users",
+                `${API_BASE_URL}/api/admin-dashboard/users`,
                 { headers: getAuthHeader() }
             );
             const fetchedUsers = Array.isArray(userResponse.data?.data) 
@@ -40,7 +41,7 @@ const AdminHome = ({ user, onLogout }) => {
             ]);
 
             const claimsResponse = await axios.get(
-                "http://localhost:5050/api/admin-dashboard/claims",
+                `${API_BASE_URL}/api/admin-dashboard/claims`,
                 { headers: getAuthHeader() }
             );
             const fetchedClaims = Array.isArray(claimsResponse.data?.data) 

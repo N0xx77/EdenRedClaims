@@ -69,7 +69,7 @@ export default function Register({ onLogin }) {
         }
 
         try {
-            const response = await axios.post('http://localhost:5050/api/register', {
+            const response = await axios.post(`${API_BASE_URL}/api/register`, {
                 email_id: email_id,
                 password: password,
                 address: address,
@@ -93,7 +93,7 @@ export default function Register({ onLogin }) {
 
     const fetchCompanies = async () => {
         try {
-            const response = await axios.get('http://localhost:5050/api/company');
+            const response = await axios.get(`${API_BASE_URL}/api/company`);
             setCompanies(Array.isArray(response.data?.data) ? response.data.data : []);
         } catch (err) {
             console.error(err);

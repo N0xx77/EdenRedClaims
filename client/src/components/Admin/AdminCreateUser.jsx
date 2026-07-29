@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { customSelectStyles, userTypeOptions, statusTypeOptions, companiesTypeOptions } from "../../assets/roleSelectStyle";
+import { API_BASE_URL } from "../../config/api";
 
 
 const AdminCreateUser = ({ user, onLogout }) => {
@@ -35,7 +36,7 @@ const AdminCreateUser = ({ user, onLogout }) => {
                     return;
                 }
 
-                response = await axios.post('http://localhost:5050/api/register', {
+                response = await axios.post(`${API_BASE_URL}/api/register`, {
                     email_id: email,
                     password: password,
                     name: name,
@@ -48,7 +49,7 @@ const AdminCreateUser = ({ user, onLogout }) => {
                     return;
                 }
 
-                response = await axios.post('http://localhost:5050/api/register', {
+                response = await axios.post(`${API_BASE_URL}/api/register`, {
                     email_id: email,
                     password: password,
                     address: address,
@@ -77,7 +78,7 @@ const AdminCreateUser = ({ user, onLogout }) => {
 
     const fetchCompanies = async () => {
         try {
-            const response = await axios.get('http://localhost:5050/api/company');
+            const response = await axios.get(`${API_BASE_URL}/api/company`);
             setCompanies(Array.isArray(response.data?.data) ? response.data.data : []);
         } catch (err) {
             console.error(err);

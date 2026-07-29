@@ -6,6 +6,7 @@ import { getAuthHeader } from "./Utils/auth";
 import { useState, useEffect } from "react";
 import { customSelectStyles, options } from "../assets/selectstyle";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config/api";
 
 
 
@@ -25,7 +26,7 @@ const AdminDashboard = ({ user, onLogout }) => {
 
     try{
       const response = await axios.get(
-        "http://localhost:5050/api/admin-dashboard/users",
+        `${API_BASE_URL}/api/admin-dashboard/users`,
         {
           headers: getAuthHeader()
         }
@@ -48,7 +49,7 @@ const AdminDashboard = ({ user, onLogout }) => {
     setErrorMessage("");
     try {
       const response = await axios.delete(
-        "http://localhost:5050/api/admin-dashboard/users",
+        `${API_BASE_URL}/api/admin-dashboard/users`,
         {
           headers: getAuthHeader(),
           data: { id: userToDelete },

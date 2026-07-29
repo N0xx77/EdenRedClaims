@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { customSelectStyles, options } from "../../assets/selectstyle";
+import { API_BASE_URL, RECEIPTS_BASE_URL } from "../../config/api";
 
 
 const ClaimUpdate = () => {
@@ -31,7 +32,7 @@ const ClaimUpdate = () => {
     setLoading(true);
     setErrorMessage("");
     try {
-      const response = await axios.get(`http://localhost:5050/api/employee-dashboard/claims/${claimID}`);
+      const response = await axios.get(`${API_BASE_URL}/api/employee-dashboard/claims/${claimID}`);
 
       const data = response.data.data;
       setClaim(data);
@@ -66,7 +67,7 @@ const ClaimUpdate = () => {
 
     try {
       const response = await axios.patch(
-        "http://localhost:5050/api/employee-dashboard/claims",
+        `${API_BASE_URL}/api/employee-dashboard/claims`,
         {
           claim_id: claimID,
           category_id: categoryId,
@@ -91,7 +92,7 @@ const ClaimUpdate = () => {
         console.log(claimID);
 
         receiptResponse = await axios.patch(
-          "http://localhost:5001/api/receipts", {
+          `${RECEIPTS_BASE_URL}/api/receipts`, {
 
           imageBuffer: base64File,
           claim_id: Number(claimID)

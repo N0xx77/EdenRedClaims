@@ -8,6 +8,7 @@ import { customSelectStyles, options } from "../../assets/selectstyle";
 import { useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 import Sidebar from "./Sidebar";
+import { API_BASE_URL, RECEIPTS_BASE_URL } from "../../config/api";
 
 const AdminClaims = ({ user, onLogout }) => {
   const [isSidebarVisible, setSidebarVisible] = useState(true);
@@ -26,7 +27,7 @@ const AdminClaims = ({ user, onLogout }) => {
     setErrorMessage("");
     try {
       const response = await axios.get(
-        "http://localhost:5050/api/admin-dashboard/users",
+        `${API_BASE_URL}/api/admin-dashboard/users`,
         {
           headers: getAuthHeader(),
         },
@@ -46,7 +47,7 @@ const AdminClaims = ({ user, onLogout }) => {
     setErrorMessage("");
     try {
       const response = await axios.get(
-        "http://localhost:5050/api/admin-dashboard/claims",
+        `${API_BASE_URL}/api/admin-dashboard/claims`,
         {
           headers: getAuthHeader(),
         },
@@ -72,7 +73,7 @@ const AdminClaims = ({ user, onLogout }) => {
       }
 
       const response = await axios.get(
-        `http://localhost:5001/api/receipts/${idToFetch}`
+        `${RECEIPTS_BASE_URL}/api/receipts/${idToFetch}`
       );
 
       setReceipt(response.data.data.imageBuffer);
@@ -101,7 +102,7 @@ const AdminClaims = ({ user, onLogout }) => {
       if (prevStatus === 1 && updatedStatus === 2) {
         newBalance = currUser.balance - balanceInWait;
         response = await axios.patch(
-          "http://localhost:5050/api/admin-dashboard/users/balance",
+          `${API_BASE_URL}/api/admin-dashboard/users/balance`,
           {
             id: currUser.id,
             balance: newBalance,
@@ -114,7 +115,7 @@ const AdminClaims = ({ user, onLogout }) => {
       else if (prevStatus === 2 && updatedStatus === 3) {
         newBalance = currUser.balance + balanceInWait;
         response = await axios.patch(
-          "http://localhost:5050/api/admin-dashboard/users/balance",
+          `${API_BASE_URL}/api/admin-dashboard/users/balance`,
           {
             id: currUser.id,
             balance: newBalance,
@@ -127,7 +128,7 @@ const AdminClaims = ({ user, onLogout }) => {
       else if (prevStatus === 3 && updatedStatus === 2) {
         newBalance = currUser.balance - balanceInWait;
         response = await axios.patch(
-          "http://localhost:5050/api/admin-dashboard/users/balance",
+          `${API_BASE_URL}/api/admin-dashboard/users/balance`,
           {
             id: currUser.id,
             balance: newBalance,
@@ -173,7 +174,7 @@ const AdminClaims = ({ user, onLogout }) => {
       if ((prevStatus !== newStatus)&&(!monthDiff)) {
         console.log(monthDiff);
         response = await axios.patch(
-          `http://localhost:5050/api/admin-dashboard/claims/`,
+          `${API_BASE_URL}/api/admin-dashboard/claims/`,
           {
             claim_id: claimId,
             status_id: newStatus,
@@ -210,7 +211,7 @@ const AdminClaims = ({ user, onLogout }) => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:5050/api/category');
+      const response = await axios.get(`${API_BASE_URL}/api/category`);
       setCategories(Array.isArray(response.data?.data) ? response.data.data : []);
     } catch (err) {
       console.error(err);

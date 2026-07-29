@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getAuthHeader } from "../Utils/auth";
 import { customSelectStyles, options } from "../../assets/selectstyle";
 import Sidebar from "./Sidebar";
+import { API_BASE_URL } from "../../config/api";
 
 const AdminUsers = ({ user, onLogout }) => {
   const [isSidebarVisible, setSidebarVisible] = useState(true);
@@ -21,7 +22,7 @@ const AdminUsers = ({ user, onLogout }) => {
 
     try {
       const response = await axios.get(
-        "http://localhost:5050/api/admin-dashboard/users",
+        `${API_BASE_URL}/api/admin-dashboard/users`,
         {
           headers: getAuthHeader()
         }
@@ -41,7 +42,7 @@ const AdminUsers = ({ user, onLogout }) => {
 
   const fetchCompanies = async () => {
     try {
-      const response = await axios.get('http://localhost:5050/api/company');
+      const response = await axios.get(`${API_BASE_URL}/api/company`);
       const data = Array.isArray(response.data.data) ? response.data.data : [];
       setCompanies(data);
 

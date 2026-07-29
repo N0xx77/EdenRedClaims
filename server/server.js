@@ -27,6 +27,9 @@ app.use('/api', loginRouter)
 app.use('/api', globalRouter)
 app.use('/api/admin-dashboard', adminRouter);
 app.use('/api/employee-dashboard', employeeRouter);
+app.get('/', (req, res) => {
+  res.send('Backend server is up and running!');
+});
 
 const PORT = process.env.PORT || 5050;
 

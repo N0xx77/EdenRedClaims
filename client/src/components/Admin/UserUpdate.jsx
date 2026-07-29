@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { customSelectStyles, userTypeOptions, statusTypeOptions } from "../../assets/roleSelectStyle";
+import { API_BASE_URL } from "../../config/api";
 
 
 const UserUpdate = () => {
@@ -24,7 +25,7 @@ const UserUpdate = () => {
         setLoading(true);
         setErrorMessage("");
         try {
-            const response = await axios.get(`http://localhost:5050/api/admin-dashboard/users/${userid}`, {
+            const response = await axios.get(`${API_BASE_URL}/api/admin-dashboard/users/${userid}`, {
                 headers: getAuthHeader()
             });
 
@@ -55,7 +56,7 @@ const UserUpdate = () => {
 
         try {
             const response = await axios.patch(
-                "http://localhost:5050/api/admin-dashboard/users/balance",
+                `${API_BASE_URL}/api/admin-dashboard/users/balance`,
                 {
                     id: userid,
                     balance: balance,
@@ -84,7 +85,7 @@ const UserUpdate = () => {
         setErrorMessage("");
 
         try {
-            const response = await axios.patch("http://localhost:5050/api/admin-dashboard/users/role",
+            const response = await axios.patch(`${API_BASE_URL}/api/admin-dashboard/users/role`,
                 {
                     id: userid,
                     user_type: role
@@ -114,7 +115,7 @@ const UserUpdate = () => {
         setErrorMessage("");
 
         try {
-            const response = await axios.patch("http://localhost:5050/api/admin-dashboard/users/status",
+            const response = await axios.patch(`${API_BASE_URL}/api/admin-dashboard/users/status`,
                 {
                     id: userid,
                     status: status
