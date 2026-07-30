@@ -1,6 +1,10 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config()
 
+console.log("SUPABASE_URI exists:", !!process.env.SUPABASE_URI);
+
+const url = new URL(process.env.SUPABASE_URI);
+
 const sequelize = process.env.SUPABASE_URI ? new Sequelize(process.env.SUPABASE_URI, {
     dialect: 'postgres',
     logging: console.log,

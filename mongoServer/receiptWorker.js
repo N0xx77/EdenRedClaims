@@ -11,61 +11,61 @@ const STATUS_APPROVED = 2;
 const STATUS_REJECTED = 3; 
 const STATUS_PARTIAL_APPROVED = 4; 
 
-const processReceiptWithQwen = async (base64Image) => {
-  try {
-    const cleanBase64 = base64Image.replace(/^data:image\/\w+;base64,/, "");
-    const url = 'http://127.0.0.1:11434/api/chat'; 
+// const processReceiptWithQwen = async (base64Image) => {
+//   try {
+//     const cleanBase64 = base64Image.replace(/^data:image\/\w+;base64,/, "");
+//     const url = 'http://127.0.0.1:11434/api/chat'; 
 
-    const payload = {
-      model: 'qwen2.5vl',
-      messages: [
-        {
-          role: 'user',
-          content: 'Analyze this receipt image and extract the total amount, date, and individual items.',
-          images: [cleanBase64]
-        }
-      ],
-      format: {
-        type: 'object',
-        properties: {
-          totalAmount: { type: 'number' },
-          date: { type: 'string', description: 'YYYY-MM-DD format or empty if not found' },
-          items: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                name: { type: 'string' },
-                price: { type: 'number' }
-              },
-              required: ['name', 'price']
-            }
-          }
-        },
-        required: ['totalAmount', 'date', 'items']
-      },
-      options: { temperature: 0.0 },
-      stream: false 
-    };
+//     const payload = {
+//       model: 'qwen2.5vl',
+//       messages: [
+//         {
+//           role: 'user',
+//           content: 'Analyze this receipt image and extract the total amount, date, and individual items.',
+//           images: [cleanBase64]
+//         }
+//       ],
+//       format: {
+//         type: 'object',
+//         properties: {
+//           totalAmount: { type: 'number' },
+//           date: { type: 'string', description: 'YYYY-MM-DD format or empty if not found' },
+//           items: {
+//             type: 'array',
+//             items: {
+//               type: 'object',
+//               properties: {
+//                 name: { type: 'string' },
+//                 price: { type: 'number' }
+//               },
+//               required: ['name', 'price']
+//             }
+//           }
+//         },
+//         required: ['totalAmount', 'date', 'items']
+//       },
+//       options: { temperature: 0.0 },
+//       stream: false 
+//     };
 
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+//     const response = await fetch(url, {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify(payload)
+//     });
 
-    if (!response.ok) {
-      throw new Error(`Ollama Server Error with Status: ${response.status}`);
-    }
+//     if (!response.ok) {
+//       throw new Error(`Ollama Server Error with Status: ${response.status}`);
+//     }
 
-    const result = await response.json();
-    return JSON.parse(result.message.content);
+//     const result = await response.json();
+//     return JSON.parse(result.message.content);
 
-  } catch (error) {
-    console.error("extraction failed:", error);
-    throw error;
-  }
-};
+//   } catch (error) {
+//     console.error("extraction failed:", error);
+//     throw error;
+//   }
+// };
 
 let isProcessing = false;
 
