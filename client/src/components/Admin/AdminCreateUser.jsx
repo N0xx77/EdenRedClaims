@@ -22,6 +22,10 @@ const AdminCreateUser = ({ user, onLogout }) => {
     const [address, setAddress] = useState('');
     const [company, setCompany] = useState('');
     const [companies, setCompanies] = useState([]);
+    const companyOptions = companies.map((companyItem) => ({
+        value: String(companyItem.id),
+        label: companyItem.company_name,
+    }));
 
     const createUser = async () => {
         setLoading(true);
@@ -57,7 +61,7 @@ const AdminCreateUser = ({ user, onLogout }) => {
                     name: name,
                     user_type: 'employee',
                     balance: 5000,
-                    company_id: company
+                    company_id: Number(company)
                 });
 
             }
@@ -221,11 +225,11 @@ const AdminCreateUser = ({ user, onLogout }) => {
                             <label>Company</label>
                             <Select
                                 required
-                                options={companiesTypeOptions}
+                                options={companyOptions}
                                 styles={customSelectStyles}
                                 placeholder="Select Company"
-                                value={companiesTypeOptions.find((option) => option.value === company)}
-                                onChange={(selectedOption) => setCompany(companies.find((comp) => comp.company_name === selectedOption.value)?.id)}
+                                value={companyOptions.find((option) => option.value === String(company))}
+                                onChange={(selectedOption) => setCompany(selectedOption.value)}
                                 placeholder="Select Company"
                                 menuPortalTarget={document.body}
                                 className="w-full"

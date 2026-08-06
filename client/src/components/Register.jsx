@@ -28,6 +28,11 @@ export default function Register({ onLogin }) {
         company: userData.company
     });
 
+    const companyOptions = companies.map((companyItem) => ({
+        value: String(companyItem.id),
+        label: companyItem.company_name,
+    }));
+
     const [error, seterror] = useState('');
 
     const navigate = useNavigate();
@@ -77,7 +82,7 @@ export default function Register({ onLogin }) {
                 contact_number: contact_number,
                 name: name,
                 user_type: 'employee',
-                company_id: company,
+                company_id: Number(company),
                 balance: 5000
             });
 
@@ -192,12 +197,12 @@ export default function Register({ onLogin }) {
                             Company Name
                         </label>
                         <Select
-                            options={companiesTypeOptions}
+                            options={companyOptions}
                             required
                             styles={customSelectStyles}
                             placeholder="Select Company Type"
-                            value={companiesTypeOptions.find((option) => option.value === company)}
-                            onChange={(selectedOption) => setCompany(companies.find((comp) => comp.company_name === selectedOption.value)?.id)}
+                            value={companyOptions.find((option) => option.value === String(company))}
+                            onChange={(selectedOption) => setCompany(selectedOption.value)}
                             placeholder="Select Company"
                             menuPortalTarget={document.body}
                             className="w-full"

@@ -31,6 +31,7 @@ export default function Login({ onLogin }) {
         e.preventDefault();
         seterror('');
         try {
+            console.log(API_BASE_URL)
             const response = await axios.post(`${API_BASE_URL}/api/login`, {
                 email_id: email_id,
                 password: password,
